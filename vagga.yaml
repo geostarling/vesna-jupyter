@@ -1,0 +1,22 @@
+containers:
+  jupyter:
+    setup:
+    - !Ubuntu bionic
+    - !UbuntuUniverse
+    - !Install [jupyter, jupyter-notebook, python3-ipywidgets, python3-numpy, python3-pandas, python3-scipy, python3-plotly, python3-matplotlib]
+    - !PipConfig dependencies: true
+    - !Py3Install [cufflinks]
+    environ:
+      JUPYTER_DATA_DIR: /work/notebook
+      JUPYTER_RUNTIME_DIR: /work/notebook
+
+commands:
+
+  shell: !Command
+    description: Run shell
+    container: jupyter
+    run: /bin/bash
+  jupyter: !Command
+    description: Run jupyter
+    container: jupyter
+    run: jupyter notebook  --allow-root
